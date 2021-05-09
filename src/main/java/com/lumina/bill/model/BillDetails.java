@@ -7,7 +7,7 @@ public class BillDetails {
     private Product product;
     private double unitPrice;
     private double IVAPercentage;
-    private int quiantity;
+    private int quantity;
     private double sellPrice;
     private double netPrice;
     private double IVAAmount;
@@ -47,12 +47,12 @@ public class BillDetails {
         this.IVAPercentage = IVAPercentage;
     }
 
-    public int getQuiantity() {
-        return quiantity;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setQuiantity(int quiantity) {
-        this.quiantity = quiantity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public double getSellPrice() {

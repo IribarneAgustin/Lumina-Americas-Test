@@ -20,7 +20,7 @@ public class ClientDAO {
         String[] taxStatus = {"Responsable Inscripto", "Monotributo","IVA no responsable"};
         while (i < 8) {
             int dniRandom = (int) (Math.random() * 50000000) + 1000000;
-            Client newClient = new Client(i, addressList[i], "DNI",dniRandom,taxStatus[(int) (Math.random() * 2)]);
+            Client newClient = new Client(i, addressList[i], "DNI",dniRandom,taxStatus[(int) (Math.random() * 3)]);
             clientList.add(newClient);
             i++;
         }

@@ -1,4 +1,5 @@
 package com.lumina.bill.DAO;
+
 import com.lumina.bill.interfaces.IBillDAO;
 import com.lumina.bill.model.Bill;
 
@@ -13,20 +14,37 @@ public class BillDAO implements IBillDAO {
         this.billList = new ArrayList<>();
     }
 
-    public void add(Bill bill){
+    public Bill getById(int id) {
+        Bill toSearch = new Bill();
+        for (Bill bill : billList) {
+            if (bill.getId() == id) {
+                toSearch = bill;
+            }
+        }
+        return toSearch;
+    }
 
-        if(bill != null)
-        {
+
+    private int getNextId() {
+        int id = 0;
+        if (!billList.isEmpty()) {
+            Bill bill = billList.get(billList.size() - 1);
+            id = bill.getId();
+        }
+        return id + 1;
+    }
+
+    public void add(Bill bill) {
+        if (bill != null) {
+            bill.setId(getNextId());
             billList.add(bill);
         }
 
     }
 
-    public List<Bill> getAll(){
+    public List<Bill> getAll() {
         return this.billList;
     }
-
-
 
 
 }

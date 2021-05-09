@@ -5,9 +5,9 @@ import javax.persistence.*;
 public class Bill {
 
     private int id;
-    private HeadBill HeadBill;
+    private HeadBill headBill;
     private BillDetails billDetails;
-    private FootBill FootBill;
+    private FootBill footBill;
 
     public Bill() {
     }
@@ -21,11 +21,11 @@ public class Bill {
     }
 
     public com.lumina.bill.model.HeadBill getHeadBill() {
-        return HeadBill;
+        return headBill;
     }
 
     public void setHeadBill(com.lumina.bill.model.HeadBill headBill) {
-        HeadBill = headBill;
+        this.headBill = headBill;
     }
 
     public BillDetails getBillDetails() {
@@ -37,10 +37,10 @@ public class Bill {
     }
 
     public com.lumina.bill.model.FootBill getFootBill() {
-        return FootBill;
+        return footBill;
     }
 
     public void setFootBill(com.lumina.bill.model.FootBill footBill) {
-        FootBill = footBill;
+        this.footBill = footBill;
     }
 }

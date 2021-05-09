@@ -5,8 +5,8 @@ package com.lumina.bill.model;
 public class FootBill {
 
     private int billId;
-    private int total;
-    private int totalIVA;
+    private double total;
+    private double totalIVA;
 
     public FootBill() {
     }
@@ -19,19 +19,19 @@ public class FootBill {
         this.billId = billId;
     }
 
-    public int getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
-    public int getTotalIVA() {
+    public double getTotalIVA() {
         return totalIVA;
     }
 
-    public void setTotalIVA(int totalIVA) {
+    public void setTotalIVA(double totalIVA) {
         this.totalIVA = totalIVA;
     }
 }

@@ -1,12 +1,13 @@
 package com.lumina.bill.model;
-
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.UUID;
 
 public class HeadBill {
 
     private int billId;
-    private Date date;
-    private long emissionCode;
+    private LocalDate date;
+    private UUID emissionCode;
     private char letter;
     private Client client;
 
@@ -21,19 +22,19 @@ public class HeadBill {
         this.billId = billId;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public long getEmissionCode() {
+    public UUID getEmissionCode() {
         return emissionCode;
     }
 
-    public void setEmissionCode(long emissionCode) {
+    public void setEmissionCode(UUID emissionCode) {
         this.emissionCode = emissionCode;
     }
 

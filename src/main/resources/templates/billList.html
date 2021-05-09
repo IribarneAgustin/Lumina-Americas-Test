@@ -1,39 +1,73 @@
 <!doctype html>
 <html xmlns:th="https://www.thymeleaf.org" lang="en">
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  <title>Hello, world!</title>
+    <title>Facturas</title>
 </head>
 <body>
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Lumina Américas SA</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/}"> Pedidos</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/billList}"> Facturas</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/ordersToCancel}"> Pedidos a cancelar</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 <div class="container mt-4">
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Action</th>
-    </tr>
-    </thead>
+    <div class="text-center">
+        <h1>Facturas realizadas</h1>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nº Cliente</th>
+            <th>Tipo de documento</th>
+            <th>Factura tipo</th>
+            <th>Nº de emisión</th>
+            <th>Fecha</th>
+            <th>Precio unitario</th>
+            <th>Cantidad</th>
+            <th>Precio neto</th>
+            <th>Porcentaje de IVA</th>
+            <th>Total IVA</th>
+            <th>Total</th>
+        </tr>
+        </thead>
 
-    <tbody>
-    <tr th:each="bill:${bills}">
-      <td th:text="${bill.id}"></td>
-      <td>
-        <a class="btn btn-warning">Editar</a>
-        <a class="btn btn-danger">Borrar</a>
-      </td>
-    </tr>
-    </tbody>
+        <tbody>
+        <tr th:each="bill:${bills}">
+            <td th:text="${bill.id}"></td>
+            <td th:text="${bill.headBill.client.dni}"></td>
+            <td th:text="${bill.headBill.client.dniType}"></td>
+            <td th:text="${bill.headBill.letter}"></td>
+            <td th:text="${bill.headBill.emissionCode}"></td>
+            <td th:text="${bill.headBill.date}"></td>
+            <td th:text="${bill.BillDetails.unitPrice}"></td>
+            <td th:text="${bill.BillDetails.quantity}"></td>
+            <td th:text="${bill.BillDetails.netPrice}"></td>
+            <td th:text="${bill.BillDetails.IVAPercentage}"></td>
+            <td th:text="${bill.footBill.totalIVA}"></td>
+            <td th:text="${bill.footBill.total}"></td>
+        </tr>
+        </tbody>
 
-  </table>
+    </table>
 </div>
 
 
