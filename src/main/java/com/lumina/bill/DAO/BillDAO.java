@@ -1,12 +1,10 @@
 package com.lumina.bill.DAO;
-
-import com.lumina.bill.interfaces.IBillDAO;
 import com.lumina.bill.model.Bill;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BillDAO implements IBillDAO {
+public class BillDAO {
 
     private List<Bill> billList;
 
@@ -44,6 +42,17 @@ public class BillDAO implements IBillDAO {
 
     public List<Bill> getAll() {
         return this.billList;
+    }
+
+    public List<Bill> getByDate(LocalDate date) {
+        ArrayList<Bill> bills = new ArrayList<>();
+        for (Bill bill : billList) {
+            if (bill.getHeadBill().getDate().equals(date)) {
+                bills.add(bill);
+            }
+
+        }
+        return bills;
     }
 
 

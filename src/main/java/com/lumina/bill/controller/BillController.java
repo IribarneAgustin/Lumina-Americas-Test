@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.*;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -26,11 +28,13 @@ public class BillController {
     private ClientDAO clientDAO;
     private ProductDAO productDAO;
 
+
     public BillController() {
         this.billDAO = new BillDAO();
         this.orderDAO = new OrderDAO();
         this.clientDAO = new ClientDAO();
         this.productDAO = new ProductDAO();
+
         addOrders();
     }
 
@@ -76,10 +80,10 @@ public class BillController {
     }
 
     @GetMapping("/creditNotes")
-    public ModelAndView creditNotes(){
+    public ModelAndView creditNotes() {
         ArrayList<CreditNote> creditNotes = (ArrayList<CreditNote>) orderDAO.getCreditNotes();
         ModelAndView model = new ModelAndView("creditNotes");
-        model.addObject("creditNotes", creditNotes );
+        model.addObject("creditNotes", creditNotes);
         return model;
     }
 
@@ -163,6 +167,7 @@ public class BillController {
             order.setStatus("Facturado");
             order.setCancelled(true); // Cancelar toda factura agregada
             this.billDAO.add(bill);
+
         }
     }
 
@@ -197,13 +202,63 @@ public class BillController {
         return model;
     }
 
-    @GetMapping("/dayWork")
-    public void dayWork(){
+    private void wirteFile(ArrayList<Bill> bills,ArrayList<CreditNote> notes){
 
-        //ArrayList<Bill> bills = billDAO.getByDate();
+        try {
+            FileWriter writer = new FileWriter("src\\main\\resources\\static\\workDay.txt");
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
+            bufferedWriter.write("Facturas del dia");
+            bufferedWriter.newLine();
+            for (Bill bill : bills){
 
+                Integer dni = bill.getHeadBill().getClient().getDni();
+                String dniType = bill.getHeadBill().getClient().getDniType();
+                Character letter = bill.getHeadBill().getLetter();
+                Integer nro = bill.getId();
+                LocalDate emissionDate = bill.getHeadBill().getDate();
+                Double total = bill.getFootBill().getTotal();
 
+                String toWrite = "Cliente: " + dni + "-" + dniType + "- Tipo:" + letter + "- Nro:" + nro + "- Fecha: " + emissionDate + " - $" + total;
+                bufferedWriter.newLine();
+                bufferedWriter.write(toWrite);
+
+            }
+
+            bufferedWriter.newLine();
+            bufferedWriter.newLine();
+            bufferedWriter.write("Notas de crédito del dia");
+            bufferedWriter.newLine();
+
+            for (CreditNote creditNote:notes) {
+
+                Integer dni = creditNote.getHead().getClient().getDni();
+                String dniType = creditNote.getHead().getClient().getDniType();
+                Character letter = creditNote.getHead().getLetter();
+                Integer nro = creditNote.getId();
+                LocalDate emissionDate = creditNote.getHead().getEmissionDate();
+                Double total = creditNote.getFoot().getTotal();
+
+                String toWrite = "Cliente: " + dni + "-" + dniType + "- Tipo:" + letter + "- Nro:" + nro + "- Fecha: " + emissionDate + " - $" + total;
+                bufferedWriter.newLine();
+                bufferedWriter.write(toWrite);
+
+            }
+
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @GetMapping("/workDay")
+    public String workDay() {
+        LocalDate date = LocalDate.now();
+        ArrayList<Bill> billsOfTheDay = (ArrayList<Bill>) billDAO.getByDate(date);
+        ArrayList<CreditNote> notesOfTheDay = (ArrayList<CreditNote>) orderDAO.getNotesByDate(date);
+        wirteFile(billsOfTheDay,notesOfTheDay);
+        return "index";
 
     }
 

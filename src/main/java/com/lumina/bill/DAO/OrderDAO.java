@@ -2,6 +2,7 @@ package com.lumina.bill.DAO;
 
 import com.lumina.bill.model.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,6 +110,17 @@ public class OrderDAO {
 
     public List<CreditNote> getCreditNotes() {
         return this.creditNotes;
+    }
+
+    public List<CreditNote> getNotesByDate(LocalDate date) {
+        ArrayList<CreditNote> creditNotes = new ArrayList<>();
+        for (CreditNote creditNote : this.creditNotes) {
+            if (creditNote.getHead().getEmissionDate().equals(date)) {
+                creditNotes.add(creditNote);
+            }
+        }
+        return creditNotes;
+
     }
 
 
