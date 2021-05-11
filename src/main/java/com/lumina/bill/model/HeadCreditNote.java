@@ -1,11 +1,12 @@
 package com.lumina.bill.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class HeadCreditNote {
 
     private int creditNoteId;
-    private Date emissionDate;
+    private LocalDate emissionDate;
     private char letter;
     private Client client;
 
@@ -20,11 +21,11 @@ public class HeadCreditNote {
         creditNoteId = creditNoteId;
     }
 
-    public Date getEmissionDate() {
+    public LocalDate getEmissionDate() {
         return emissionDate;
     }
 
-    public void setEmissionDate(Date emissionDate) {
+    public void setEmissionDate(LocalDate emissionDate) {
         this.emissionDate = emissionDate;
     }
 

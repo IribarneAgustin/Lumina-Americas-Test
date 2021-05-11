@@ -23,6 +23,9 @@
                 <a class="nav-link" th:href="@{/billList}"> Facturas</a>
             </li>
             <li class="nav-item active">
+                <a class="nav-link" th:href="@{/creditNotes}"> Notas de crédito</a>
+            </li>
+            <li class="nav-item active">
                 <a class="nav-link" th:href="@{/ordersToCancel}"> Pedidos a cancelar</a>
             </li>
         </ul>
@@ -43,6 +46,7 @@
             <th>Nº</th>
             <th>Cliente</th>
             <th>Producto</th>
+            <th>Estado</th>
             <th>Cantidad</th>
             <th></th>
         </tr>
@@ -53,10 +57,11 @@
             <td th:text="${order.id}"></td>
             <td th:text="${order.client.dni}"></td>
             <td th:text="${order.product.name}"></td>
+            <td th:text="${order.status}"></td>
             <td th:text="${order.quantity}"></td>
 
             <td>
-                <a class="btn btn-warning" th:href="@{/addBill(orderId=${order.id})}">Cancelar</a>
+                <a class="btn btn-warning" th:href="@{/cancel(orderId=${order.id})}">Cancelar</a>
             </td>
         </tr>
 

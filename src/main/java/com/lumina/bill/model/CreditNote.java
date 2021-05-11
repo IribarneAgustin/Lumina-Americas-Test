@@ -13,6 +13,12 @@ public class CreditNote {
         return id;
     }
 
+    public CreditNote(int id, HeadCreditNote head, FootCreditNote foot) {
+        this.id = id;
+        this.head = head;
+        this.foot = foot;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Pedidos</title>
+    <title>Notas de crédito</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -35,10 +35,8 @@
 
 <div class="container mt-4">
     <div class="text-center">
-        <h1>Pedidos</h1>
+        <h1>Notas de crédito</h1>
     </div>
-
-    <a th:href="@{/addBills}" class="btn btn-primary btn-lg btn-block">Facturar todas</a>
 
     <hr>
 
@@ -47,24 +45,19 @@
         <tr>
             <th>Nº</th>
             <th>Cliente</th>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th></th>
+            <th>Fecha</th>
+            <th>Total</th>
+
         </tr>
         </thead>
 
         <tbody>
-        <tr th:each="order : ${orders}">
-            <div th:if="${order.cancelled == false && order.status == 'Pendiente'}">
-                <td th:text="${order.id}"></td>
-                <td th:text="${order.client.dni}"></td>
-                <td th:text="${order.product.name}"></td>
-                <td th:text="${order.quantity}"></td>
 
-                <td>
-                    <a class="btn btn-warning" th:href="@{/addBill(orderId=${order.id})}">Facturar</a>
-                </td>
-            </div>
+        <tr th:each="creditNote : ${creditNotes}">
+            <th th:text="${creditNote.id}"></th>
+            <th th:text="${creditNote.head.client.dni}"></th>
+            <th th:text="${creditNote.head.emissionDate}"></th>
+            <th th:text="${creditNote.foot.total}"></th>
         </tr>
 
         </tbody>
@@ -87,3 +80,4 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
+

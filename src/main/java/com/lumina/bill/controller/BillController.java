@@ -66,6 +66,23 @@ public class BillController {
         return model;
     }
 
+    @GetMapping("/cancel")
+    public ModelAndView cancel(int orderId) {
+        orderDAO.cancel(orderId);
+        ArrayList<Order> ordersToCancel = (ArrayList<Order>) orderDAO.getOrdersToCancel();
+        ModelAndView model = new ModelAndView("toCancelList");
+        model.addObject("orders", ordersToCancel);
+        return model;
+    }
+
+    @GetMapping("/creditNotes")
+    public ModelAndView creditNotes(){
+        ArrayList<CreditNote> creditNotes = (ArrayList<CreditNote>) orderDAO.getCreditNotes();
+        ModelAndView model = new ModelAndView("creditNotes");
+        model.addObject("creditNotes", creditNotes );
+        return model;
+    }
+
 
     private char generateLetter(Client client) {
         char letter = ' ';
@@ -93,7 +110,6 @@ public class BillController {
             }
         }
         return percentage;
-
     }
 
     private HeadBill generateHead(Client client) {
@@ -118,7 +134,7 @@ public class BillController {
         details.setProduct(order.getProduct());
         details.setUnitPrice(order.getProduct().getPrice());
         details.setQuantity(order.getQuantity());
-        details.setNetPrice(order.getQuantity() * order.getProduct().getPrice()); // * quantity
+        details.setNetPrice(order.getQuantity() * order.getProduct().getPrice());
         details.setIVAPercentage(generatePercentage(order.getClient()));
         details.setIVAAmount(generateIVAAmount(details.getNetPrice(), generatePercentage(order.getClient())));
         details.setSellPrice(details.getNetPrice() + details.getIVAAmount());
@@ -145,6 +161,7 @@ public class BillController {
             bill.setFootBill(generateFoot(bill.getBillDetails()));
             order.setBill(bill);
             order.setStatus("Facturado");
+            order.setCancelled(true); // Cancelar toda factura agregada
             this.billDAO.add(bill);
         }
     }
@@ -174,11 +191,20 @@ public class BillController {
 
     @GetMapping("/billList")
     public ModelAndView list() {
-
         List<Bill> bills = billDAO.getAll();
         ModelAndView model = new ModelAndView("billList");
         model.addObject("bills", bills);
         return model;
+    }
+
+    @GetMapping("/dayWork")
+    public void dayWork(){
+
+        //ArrayList<Bill> bills = billDAO.getByDate();
+
+
+
+
     }
 
 

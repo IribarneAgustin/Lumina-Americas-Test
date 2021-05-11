@@ -9,6 +9,7 @@ public class Order {
     private String status; //Pendiente o  facturado
     private boolean cancelled;
     private Bill bill;
+    private CreditNote creditNote;
 
 
 
@@ -77,5 +78,12 @@ public class Order {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+    public CreditNote getCreditNote() {
+        return creditNote;
+    }
+
+    public void setCreditNote(CreditNote creditNote) {
+        this.creditNote = creditNote;
     }
 }
