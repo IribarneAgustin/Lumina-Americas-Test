@@ -1,7 +1,4 @@
 Facturas del dia
 
-Cliente: 9188355-DNI- Tipo:B- Nro:1- Fecha: 2021-05-10 - $60500.0
-Cliente: 28560305-DNI- Tipo:A- Nro:2- Fecha: 2021-05-10 - $48906.22
-Notas de crédito del dia
 
-Cliente: 9188355-DNI- Tipo:B- Nro:1- Fecha: 2021-05-10 - $60500.0
+Notas de crédito del dia

@@ -5,7 +5,6 @@ import java.util.UUID;
 
 public class HeadBill {
 
-    private int billId;
     private LocalDate date;
     private UUID emissionCode;
     private char letter;
@@ -14,13 +13,6 @@ public class HeadBill {
     public HeadBill() {
     }
 
-    public int getBillId() {
-        return billId;
-    }
-
-    public void setBillId(int billId) {
-        this.billId = billId;
-    }
 
     public LocalDate getDate() {
         return date;

@@ -5,20 +5,11 @@ import java.util.Date;
 
 public class HeadCreditNote {
 
-    private int creditNoteId;
     private LocalDate emissionDate;
     private char letter;
     private Client client;
 
     public HeadCreditNote() {
-    }
-
-    public int getCreditNoteId() {
-        return creditNoteId;
-    }
-
-    public void setCreditNoteId(int creditNoteId) {
-        creditNoteId = creditNoteId;
     }
 
     public LocalDate getEmissionDate() {

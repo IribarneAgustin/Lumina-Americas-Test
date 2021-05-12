@@ -16,18 +16,21 @@
     <a class="navbar-brand" href="/">Lumina Américas SA</a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="nav navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/}"> Pedidos</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Facturas
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" th:href="@{/}">Pedidos</a>
+                    <a class="dropdown-item" th:href="@{/billList}"> Facturas</a>
+                    <a class="dropdown-item" th:href="@{/creditNotes}"> Notas de crédito</a>
+                    <a class="dropdown-item" th:href="@{/ordersToCancel}"> Pedidos a cancelar</a>
+                </div>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/billList}"> Facturas</a>
+                <a class="nav-link" th:href="@{/workDay}"> Dia de trabajo</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/creditNotes}"> Notas de crédito</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/ordersToCancel}"> Pedidos a cancelar</a>
-            </li>
+
         </ul>
     </div>
 </nav>

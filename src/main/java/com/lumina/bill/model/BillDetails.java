@@ -3,7 +3,7 @@ package com.lumina.bill.model;
 
 public class BillDetails {
 
-    private int billId;
+
     private Product product;
     private double unitPrice;
     private double IVAPercentage;
@@ -15,13 +15,6 @@ public class BillDetails {
     public BillDetails() {
     }
 
-    public int getBillId() {
-        return billId;
-    }
-
-    public void setBillId(int billId) {
-        this.billId = billId;
-    }
 
     public Product getProduct() {
         return product;

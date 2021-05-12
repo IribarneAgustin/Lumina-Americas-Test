@@ -7,12 +7,10 @@ import com.lumina.bill.DAO.ProductDAO;
 import com.lumina.bill.model.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
@@ -34,7 +32,6 @@ public class BillController {
         this.orderDAO = new OrderDAO();
         this.clientDAO = new ClientDAO();
         this.productDAO = new ProductDAO();
-
         addOrders();
     }
 
@@ -172,25 +169,19 @@ public class BillController {
     }
 
     @GetMapping("/addBills")
-    public ModelAndView addBills() {
+    public String addBills() {
         List<Order> orders = orderDAO.getOrdersToBill();
         for (Order order : orders) {
             addBill(order);
         }
-        List<Bill> bills = billDAO.getAll();
-        ModelAndView model = new ModelAndView("billList");
-        model.addObject("bills", bills);
-        return model;
+        return "redirect:/";
     }
 
     @GetMapping("/addBill")
-    public ModelAndView addBill(int orderId) {
+    public String addBill(int orderId) {
         Order order = orderDAO.getById(orderId);
         addBill(order);
-        List<Bill> bills = billDAO.getAll();
-        ModelAndView model = new ModelAndView("billList");
-        model.addObject("bills", bills);
-        return model;
+        return "redirect:/";
     }
 
 
@@ -202,7 +193,9 @@ public class BillController {
         return model;
     }
 
-    private void wirteFile(ArrayList<Bill> bills,ArrayList<CreditNote> notes){
+    // Método para escribir archivo
+
+    private void wirteFile(ArrayList<Bill> bills, ArrayList<CreditNote> notes) {
 
         try {
             FileWriter writer = new FileWriter("src\\main\\resources\\static\\workDay.txt");
@@ -210,7 +203,7 @@ public class BillController {
 
             bufferedWriter.write("Facturas del dia");
             bufferedWriter.newLine();
-            for (Bill bill : bills){
+            for (Bill bill : bills) {
 
                 Integer dni = bill.getHeadBill().getClient().getDni();
                 String dniType = bill.getHeadBill().getClient().getDniType();
@@ -230,7 +223,7 @@ public class BillController {
             bufferedWriter.write("Notas de crédito del dia");
             bufferedWriter.newLine();
 
-            for (CreditNote creditNote:notes) {
+            for (CreditNote creditNote : notes) {
 
                 Integer dni = creditNote.getHead().getClient().getDni();
                 String dniType = creditNote.getHead().getClient().getDniType();
@@ -257,9 +250,34 @@ public class BillController {
         LocalDate date = LocalDate.now();
         ArrayList<Bill> billsOfTheDay = (ArrayList<Bill>) billDAO.getByDate(date);
         ArrayList<CreditNote> notesOfTheDay = (ArrayList<CreditNote>) orderDAO.getNotesByDate(date);
-        wirteFile(billsOfTheDay,notesOfTheDay);
-        return "index";
+        wirteFile(billsOfTheDay, notesOfTheDay);
+        return "redirect:/file/workDay.txt";
 
+    }
+
+    // Método para descargar archivo generado
+
+    @RequestMapping("/file/{fileName}")
+    @ResponseBody
+    public void show(@PathVariable("fileName") String fileName, HttpServletResponse response) {
+
+        response.setHeader("Content-Disposition", "attachment; filename=" +fileName);
+        response.setHeader("Content-Transfer-Encoding", "binary");
+        try {
+            BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
+            FileInputStream fis = new FileInputStream("src\\main\\resources\\static\\"+fileName);
+            int len;
+            byte[] buf = new byte[1024];
+            while((len = fis.read(buf)) > 0) {
+                bos.write(buf,0,len);
+            }
+            bos.close();
+            response.flushBuffer();
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+
+        }
     }
 
 
