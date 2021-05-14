@@ -1,25 +1,21 @@
 package com.lumina.bill.controller;
-
 import com.lumina.bill.DAO.BillDAO;
 import com.lumina.bill.DAO.ClientDAO;
 import com.lumina.bill.DAO.OrderDAO;
 import com.lumina.bill.DAO.ProductDAO;
 import com.lumina.bill.model.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.*;
 
 
 @Controller
 @RequestMapping
-public class BillController {
+public class BillController{
 
     private BillDAO billDAO;
     private OrderDAO orderDAO;
@@ -35,8 +31,8 @@ public class BillController {
         addOrders();
     }
 
+
     //Método para cargar datos en memoria
-    @GetMapping("/addOrders")
     private void addOrders() {
         int i = 0;
         ArrayList<Client> clients = (ArrayList<Client>) clientDAO.getAll();
@@ -74,6 +70,16 @@ public class BillController {
         ModelAndView model = new ModelAndView("toCancelList");
         model.addObject("orders", ordersToCancel);
         return model;
+    }
+
+    @GetMapping("/cancelAll")
+    public String cancelAll(){
+        ArrayList<Order> ordersToCancel = (ArrayList<Order>) orderDAO.getOrdersToCancel();
+        for (Order order:ordersToCancel){
+            orderDAO.cancel(order.getId());
+        }
+        return "redirect:/ordersToCancel";
+
     }
 
     @GetMapping("/creditNotes")
@@ -155,6 +161,7 @@ public class BillController {
 
 
     public void addBill(Order order) {
+
         if (order != null) {
             Bill bill = new Bill();
             bill.setHeadBill(generateHead(order.getClient()));
@@ -168,12 +175,17 @@ public class BillController {
         }
     }
 
+
+
     @GetMapping("/addBills")
     public String addBills() {
+
         List<Order> orders = orderDAO.getOrdersToBill();
         for (Order order : orders) {
             addBill(order);
         }
+
+
         return "redirect:/";
     }
 

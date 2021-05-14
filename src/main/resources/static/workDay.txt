@@ -1,4 +1,13 @@
 Facturas del dia
 
+Cliente: 25035769-DNI- Tipo:X- Nro:1- Fecha: 2021-05-14 - $51000.0
+Cliente: 5722541-DNI- Tipo:A- Nro:2- Fecha: 2021-05-14 - $110050.0
+Cliente: 11806156-DNI- Tipo:A- Nro:3- Fecha: 2021-05-14 - $48906.22
+Cliente: 7383108-DNI- Tipo:X- Nro:4- Fecha: 2021-05-14 - $113050.0
 
 Notas de crédito del dia
+
+Cliente: 25035769-DNI- Tipo:X- Nro:1- Fecha: 2021-05-14 - $51000.0
+Cliente: 5722541-DNI- Tipo:A- Nro:2- Fecha: 2021-05-14 - $110050.0
+Cliente: 11806156-DNI- Tipo:A- Nro:3- Fecha: 2021-05-14 - $48906.22
+Cliente: 7383108-DNI- Tipo:X- Nro:4- Fecha: 2021-05-14 - $113050.0
